@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOB Calendar Picker Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-container {
+            position: relative;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 40px 12px 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        
+        .calendar-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .calendar-icon:hover {
+            color: #007bff;
+        }
+        
+        .calendar {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 5px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            min-width: 280px;
+            padding: 20px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .calendar-nav {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .calendar-nav:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .calendar-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+        
+        .calendar-day-header {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            padding: 8px 0;
+        }
+        
+        .calendar-day {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .calendar-day:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .calendar-day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .calendar-day.disabled:hover {
+            background: none;
+        }
+        
+        .calendar-day.selected {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .calendar-day.today {
+            background-color: #f0f0f0;
+            font-weight: 600;
+        }
+        
+        .calendar-footer {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .instructions {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions h3 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        
+        .instructions ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+        }
+        
+        .demo-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .demo-btn {
+            padding: 8px 16px;
+            border: 1px solid #007bff;
+            background: white;
+            color: #007bff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .demo-btn:hover {
+            background: #007bff;
+            color: white;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h2>Date of Birth Calendar Picker Test</h2>
+        
+        <div class="instructions">
+            <h3>Test Instructions:</h3>
+            <ul>
+                <li>Click on the calendar icon or input field to open the calendar</li>
+                <li>Navigate between months using arrow buttons</li>
+                <li>Click on any date to select it</li>
+                <li>Disabled dates (future dates, under 18) are grayed out</li>
+                <li>Selected date is highlighted in blue</li>
+                <li>Today's date is highlighted in gray</li>
+            </ul>
+        </div>
+        
+        <form id="testForm">
+            <div class="form-group">
+                <label for="dob">Date of Birth *</label>
+                <div class="input-container">
+                    <input 
+                        type="text" 
+                        id="dob" 
+                        name="dob" 
+                        placeholder="dd-mm-yyyy" 
+                        readonly
+                        required
+                    >
+                    <span class="calendar-icon" onclick="toggleCalendar()">📅</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name">
+            </div>
+        </form>
+        
+        <div class="demo-buttons">
+            <button class="demo-btn" onclick="setTestDate('15-03-1990')">Set Valid Date (1990)</button>
+            <button class="demo-btn" onclick="setTestDate('01-01-1985')">Set Valid Date (1985)</button>
+            <button class="demo-btn" onclick="clearDate()">Clear Date</button>
+        </div>
+        
+        <div class="result" id="result" style="display: none;">
+            <strong>Selected Date:</strong> <span id="selectedDate"></span><br>
+            <strong>Age:</strong> <span id="calculatedAge"></span> years old<br>
+            <strong>Status:</strong> <span id="dateStatus"></span>
+        </div>
+    </div>
+
+    <!-- Calendar HTML will be inserted here -->
+    <div id="calendar" class="calendar" style="display: none;"></div>
+
+    <script>
+        let currentDate = new Date();
+        let selectedDate = null;
+        let showCalendar = false;
+
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        function toggleCalendar() {
+            showCalendar = !showCalendar;
+            if (showCalendar) {
+                renderCalendar();
+                document.getElementById('calendar').style.display = 'block';
+            } else {
+                document.getElementById('calendar').style.display = 'none';
+            }
+        }
+
+        function renderCalendar() {
+            const calendar = document.getElementById('calendar');
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Header
+            calendar.innerHTML = `
+                <div class="calendar-header">
+                    <button class="calendar-nav" onclick="changeMonth(-1)">‹</button>
+                    <div class="calendar-title">${monthNames[month]} ${year}</div>
+                    <button class="calendar-nav" onclick="changeMonth(1)">›</button>
+                </div>
+                <div class="calendar-grid">
+                    ${dayNames.map(day => `<div class="calendar-day-header">${day}</div>`).join('')}
+                    ${getCalendarDays(year, month).map(day => {
+                        if (!day) return '<div></div>';
+                        
+                        const isDisabled = isDateDisabled(day);
+                        const isSelected = selectedDate && isSameDate(day, selectedDate);
+                        const isToday = isSameDate(day, new Date());
+                        
+                        return `
+                            <button 
+                                class="calendar-day ${isDisabled ? 'disabled' : ''} ${isSelected ? 'selected' : ''} ${isToday ? 'today' : ''}"
+                                ${isDisabled ? 'disabled' : `onclick="selectDate(new Date(${day.getFullYear()}, ${day.getMonth()}, ${day.getDate()}))"`}
+                            >
+                                ${day.getDate()}
+                            </button>
+                        `;
+                    }).join('')}
+                </div>
+                <div class="calendar-footer">
+                    Must be 18+ years old to register
+                </div>
+            `;
+        }
+
+        function getCalendarDays(year, month) {
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDayOfWeek = firstDay.getDay();
+
+            const days = [];
+            
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < startingDayOfWeek; i++) {
+                days.push(null);
+            }
+            
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                days.push(new Date(year, month, day));
+            }
+            
+            return days;
+        }
+
+        function changeMonth(direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            renderCalendar();
+        }
+
+        function selectDate(date) {
+            selectedDate = date;
+            const dateString = formatDate(date);
+            document.getElementById('dob').value = dateString;
+            showCalendar = false;
+            document.getElementById('calendar').style.display = 'none';
+            updateResult(date);
+        }
+
+        function formatDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+
+        function isDateDisabled(date) {
+            const today = new Date();
+            const age = today.getFullYear() - date.getFullYear();
+            const monthDiff = today.getMonth() - date.getMonth();
+            const dayDiff = today.getDate() - date.getDate();
+            
+            let actualAge = age;
+            if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+                actualAge = age - 1;
+            }
+            
+            return date > today || actualAge < 18 || actualAge > 120;
+        }
+
+        function isSameDate(date1, date2) {
+            return date1.getDate() === date2.getDate() &&
+                   date1.getMonth() === date2.getMonth() &&
+                   date1.getFullYear() === date2.getFullYear();
+        }
+
+        function updateResult(date) {
+            const today = new Date();
+            const age = today.getFullYear() - date.getFullYear();
+            const monthDiff = today.getMonth() - date.getMonth();
+            const dayDiff = today.getDate() - date.getDate();
+            
+            let actualAge = age;
+            if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+                actualAge = age - 1;
+            }
+            
+            document.getElementById('selectedDate').textContent = formatDate(date);
+            document.getElementById('calculatedAge').textContent = actualAge;
+            document.getElementById('dateStatus').textContent = actualAge >= 18 ? 'Valid' : 'Invalid (Under 18)';
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function setTestDate(dateString) {
+            document.getElementById('dob').value = dateString;
+            const [day, month, year] = dateString.split('-').map(Number);
+            const date = new Date(year, month - 1, day);
+            selectedDate = date;
+            currentDate = new Date(date);
+            updateResult(date);
+        }
+
+        function clearDate() {
+            document.getElementById('dob').value = '';
+            selectedDate = null;
+            document.getElementById('result').style.display = 'none';
+        }
+
+        // Close calendar when clicking outside
+        document.addEventListener('click', function(event) {
+            const calendar = document.getElementById('calendar');
+            const input = document.getElementById('dob');
+            const icon = document.querySelector('.calendar-icon');
+            
+            if (showCalendar && 
+                !calendar.contains(event.target) && 
+                !input.contains(event.target) && 
+                !icon.contains(event.target)) {
+                showCalendar = false;
+                calendar.style.display = 'none';
+            }
+        });
+
+        // Prevent form submission for demo
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Calendar picker test completed!');
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

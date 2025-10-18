@@ -1,12 +1,79 @@
-# React + Vite
+# NeuroCare AI - Medical Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive healthcare platform for neurological diagnosis and patient management using AI-powered MRI analysis.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **AI-Powered MRI Analysis**: Advanced brain scan analysis with 97.2% accuracy
+- **Patient Management**: Comprehensive patient database and medical records
+- **Doctor Registration**: Admin-controlled doctor access management
+- **Real-time Chat**: AI health assistant and doctor communication
+- **Video Consultations**: Premium video consultation features
+- **Medical Reports**: Detailed analytics and reporting system
 
-## Expanding the ESLint configuration
+## Admin Access
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The admin dashboard is now properly secured and only accessible to users with admin role:
+
+- **Admin Dashboard**: Only visible to users with `role: 'admin'`
+- **Protected Routes**: Admin routes are protected with `AdminProtectedRoute`
+- **Conditional Access**: Admin links only appear for admin users in the dashboard
+
+### User Roles
+
+- **Patient**: Default role for regular users (Google sign-in users)
+- **Admin**: Administrative access to manage doctors, patients, and system settings
+
+## Getting Started
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. Access the application at `http://localhost:5173`
+
+### Environment
+
+Create a `.env` file in the frontend root if needed:
+
+```
+VITE_MONGODB_API_URL=http://localhost:3002/api
+VITE_RAZORPAY_KEY_ID=rzp_test_xxxxxxxx
+```
+
+## Authentication
+
+The application supports hybrid authentication:
+- **Google Sign-In**: Via Supabase (defaults to patient role)
+- **Email/Password**: Via MongoDB (supports admin role assignment)
+
+## Admin Dashboard Features
+
+- Doctor registration management
+- Patient database administration
+- Medical records oversight
+- AI analysis monitoring
+- System status and analytics
+- User management and access control
+
+## Technology Stack
+
+- **Frontend**: React + Vite
+- **Authentication**: Supabase + MongoDB
+- **Styling**: Tailwind CSS
+- **Icons**: React Icons
+- **Charts**: Chart.js
+- **Routing**: React Router
+
+## Security
+
+- Protected routes for authenticated users
+- Admin-only access to administrative features
+- Role-based access control
+- Secure authentication flow

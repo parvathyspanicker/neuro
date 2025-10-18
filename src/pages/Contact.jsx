@@ -1,7 +1,10 @@
 import "../style.css";
 import { useState } from "react";
-import brainContact from "../assets/brain-contact.png";
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaHeadset, FaShieldAlt } from "react-icons/fa";
+import {
+  FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaHeadset, FaShieldAlt,
+  FaRocket, FaUserMd, FaLock, FaStar, FaThumbsUp,
+  FaComments, FaPaperPlane, FaAward, FaUsers, FaHeart
+} from "react-icons/fa";
 
 const contactMethods = [
   {
@@ -60,211 +63,276 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="bg-white py-12 px-4 text-gray-800 min-h-screen">
-      <div className="max-w-5xl mx-auto">
-        {/* Compact Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl mb-3 shadow-md">
-            <span className="text-lg">💬</span>
+    <section id="contact" className="bg-white py-16 px-4 text-gray-800 min-h-screen">
+      <div className="max-w-6xl mx-auto">
+        {/* Clean Header */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-xl mb-4">
+            <FaComments className="text-blue-600 text-lg" />
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-3 tracking-tight neuro-title">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Get in Touch
           </h2>
-          <p className="text-base text-gray-600 max-w-xl mx-auto leading-relaxed medical-font">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Have questions about your neurological health? Our expert team is here to help.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-6 mb-8">
-          {/* Contact Methods */}
-          <div className="lg:col-span-2 space-y-4">
-            <div className="mb-4">
-              <h3 className="text-lg font-bold text-blue-900 mb-1 neuro-title">Contact Methods</h3>
-              <p className="text-gray-600 text-xs medical-font">Choose your preferred way to reach us</p>
-            </div>
+        {/* Horizontal Contact Methods */}
+        <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-12">
+          <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">Get in Touch</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {contactMethods.map((method, index) => (
-              <div key={index} className="group bg-white p-4 rounded-xl shadow-md border border-gray-100 hover:shadow-lg hover:scale-[1.02] transition-all duration-300">
-                <div className="flex items-start gap-3">
-                  <div className={`p-2 ${method.bgColor} rounded-lg group-hover:scale-105 transition-transform duration-300`}>
-                    <method.icon className={`${method.color} text-sm`} />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-sm text-blue-900 mb-1 neuro-font">{method.title}</h4>
-                    <p className="text-gray-600 mb-1 text-xs leading-relaxed medical-font">{method.description}</p>
-                    <p className="font-semibold text-blue-700 mb-1 text-xs neuro-font">{method.contact}</p>
-                    <p className="text-xs text-gray-500 medical-font">{method.availability}</p>
-                  </div>
+              <div key={index} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors">
+                <div className={`w-12 h-12 ${method.bgColor} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                  <method.icon className={`${method.color} text-lg`} />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-gray-900 mb-1">{method.title}</h4>
+                  <p className="text-gray-600 text-sm mb-1">{method.description}</p>
+                  <p className="font-semibold text-blue-600 text-sm">{method.contact}</p>
+                  <p className="text-xs text-gray-500">{method.availability}</p>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
 
-            {/* Office Info */}
-            <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-4 rounded-xl text-white shadow-md">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="p-1.5 bg-white/20 rounded-lg backdrop-blur-sm">
-                  <FaMapMarkerAlt className="text-sm" />
-                </div>
-                <h4 className="font-semibold text-sm neuro-title">Our Headquarters</h4>
+        {/* Horizontal Main Content */}
+        <div className="grid lg:grid-cols-3 gap-8 mb-12">
+          {/* Contact Form - Takes 2 columns */}
+          <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                <FaPaperPlane className="text-blue-600 text-sm" />
               </div>
-              <div className="space-y-1">
-                <p className="text-blue-100 font-medium text-sm neuro-font">NeuroCare Medical Center</p>
-                <p className="text-blue-100 text-xs medical-font">Kottayam, Kerala, India 686001</p>
-                <div className="flex items-center gap-2 text-blue-200 pt-2 border-t border-white/20">
-                  <FaClock className="text-xs" />
-                  <span className="text-xs medical-font">Mon-Fri: 9AM-6PM IST</span>
-                </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">Send us a Message</h3>
+                <p className="text-gray-600 text-sm">We'll respond within 2 hours</p>
               </div>
             </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="lg:col-span-3">
-            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="p-1.5 bg-blue-100 rounded-lg">
-                  <FaShieldAlt className="text-blue-600 text-sm" />
+            
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your full name"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all duration-200"
+                    required
+                  />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-blue-900 neuro-title">Send us a Message</h3>
-                  <p className="text-gray-600 text-xs medical-font">We'll respond within 2 hours</p>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="you@example.com"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all duration-200"
+                    required
+                  />
                 </div>
               </div>
-              
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 mb-1 neuro-font">Full Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Your full name"
-                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 outline-none transition-all duration-200 text-sm medical-font"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 mb-1 neuro-font">Email Address</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="you@example.com"
-                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 outline-none transition-all duration-200 text-sm medical-font"
-                      required
-                    />
-                  </div>
-                </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 mb-1 neuro-font">Subject</label>
-                    <input
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      placeholder="What's this about?"
-                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 outline-none transition-all duration-200 text-sm medical-font"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 mb-1 neuro-font">Priority Level</label>
-                    <select
-                      name="urgency"
-                      value={formData.urgency}
-                      onChange={handleChange}
-                      className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 outline-none transition-all duration-200 text-sm medical-font"
-                    >
-                      <option value="low">Low Priority</option>
-                      <option value="normal">Normal Priority</option>
-                      <option value="high">High Priority</option>
-                      <option value="urgent">Urgent</option>
-                    </select>
-                  </div>
-                </div>
-
+              <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-1 neuro-font">Message</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
                     onChange={handleChange}
-                    placeholder="Please describe your question or concern in detail..."
-                    className="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 outline-none resize-none transition-all duration-200 text-sm medical-font"
-                    rows="4"
+                    placeholder="What's this about?"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all duration-200"
                     required
-                  ></textarea>
+                  />
                 </div>
-
-                <div className="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-                  <div className="flex items-start gap-2">
-                    <FaShieldAlt className="text-indigo-600 text-sm mt-0.5" />
-                    <div>
-                      <h4 className="font-semibold text-indigo-800 mb-1 text-xs neuro-font">Privacy & Security</h4>
-                      <p className="text-xs text-indigo-700 medical-font">
-                        Your message is encrypted and handled in compliance with HIPAA regulations. 
-                        We never share your personal information with third parties.
-                      </p>
-                    </div>
-                  </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Priority Level</label>
+                  <select
+                    name="urgency"
+                    value={formData.urgency}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all duration-200"
+                  >
+                    <option value="normal">Normal</option>
+                    <option value="urgent">Urgent</option>
+                    <option value="emergency">Emergency</option>
+                  </select>
                 </div>
+              </div>
 
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Please describe your question or concern in detail..."
+                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none resize-none transition-all duration-200"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+
+              <div className="flex items-center justify-between pt-4">
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <FaShieldAlt className="text-green-600" />
+                  <span>Your information is secure and confidential</span>
+                </div>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 rounded-lg font-semibold shadow-md transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed text-sm neuro-font"
+                  className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg flex items-center gap-2"
                 >
                   {isSubmitting ? (
-                    <div className="flex items-center justify-center gap-2">
+                    <>
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Sending Message...
-                    </div>
+                      <span>Sending...</span>
+                    </>
                   ) : (
-                    "Send Message"
+                    <>
+                      <FaPaperPlane className="text-sm" />
+                      <span>Send Message</span>
+                    </>
                   )}
                 </button>
-              </form>
+              </div>
+            </form>
+          </div>
+
+          {/* Compact Info Sidebar */}
+          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            {/* Office Info */}
+            <div className="mb-6">
+              <div className="flex items-center gap-2 mb-3">
+                <FaMapMarkerAlt className="text-blue-600 text-sm" />
+                <h4 className="font-semibold text-gray-900">Our Office</h4>
+              </div>
+              <div className="space-y-2 text-sm">
+                <p className="font-medium text-gray-900">NeuroCare Medical Center</p>
+                <p className="text-gray-600">Kottayam, Kerala, India</p>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <FaClock className="text-xs" />
+                  <span>Mon-Fri: 9AM-6PM</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Features */}
+            <div className="mb-6">
+              <h4 className="font-semibold text-gray-900 mb-3">Why Choose Us?</h4>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm">
+                  <FaUserMd className="text-blue-600 text-xs" />
+                  <span className="text-gray-700">Expert neurologists</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <FaRocket className="text-green-600 text-xs" />
+                  <span className="text-gray-700">2-hour response</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <FaLock className="text-purple-600 text-xs" />
+                  <span className="text-gray-700">HIPAA secure</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <FaStar className="text-yellow-600 text-xs" />
+                  <span className="text-gray-700">4.9/5 rating</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Trust Stats */}
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-3">Trust Indicators</h4>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="text-center p-2 bg-gray-50 rounded">
+                  <FaUsers className="text-blue-600 mx-auto mb-1" />
+                  <div className="text-xs font-bold">10,000+</div>
+                  <div className="text-xs text-gray-600">Patients</div>
+                </div>
+                <div className="text-center p-2 bg-gray-50 rounded">
+                  <FaAward className="text-green-600 mx-auto mb-1" />
+                  <div className="text-xs font-bold">FDA</div>
+                  <div className="text-xs text-gray-600">Approved</div>
+                </div>
+                <div className="text-center p-2 bg-gray-50 rounded">
+                  <FaThumbsUp className="text-purple-600 mx-auto mb-1" />
+                  <div className="text-xs font-bold">99.2%</div>
+                  <div className="text-xs text-gray-600">Accuracy</div>
+                </div>
+                <div className="text-center p-2 bg-gray-50 rounded">
+                  <FaHeart className="text-red-600 mx-auto mb-1" />
+                  <div className="text-xs font-bold">24/7</div>
+                  <div className="text-xs text-gray-600">Support</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Map Section */}
-        <div className="text-center">
-          <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 max-w-4xl mx-auto">
-            <div className="mb-4">
-              <h3 className="text-lg font-bold text-blue-900 mb-1 neuro-title">Visit Our Location</h3>
-              <p className="text-gray-600 text-sm medical-font">Find us at the heart of Kerala's medical district</p>
+        {/* Horizontal Map & Contact Info */}
+        <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Map */}
+            <div className="lg:col-span-2">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Visit Our Location</h3>
+              <div className="w-full h-64 rounded-lg overflow-hidden shadow-md border border-gray-200">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125442.72455312653!2d76.44608!3d9.59411!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d514abec6bf%3A0xbd582caa5844192!2sKottayam%2C%20Kerala!5e0!3m2!1sen!2sin!4v1703123456789!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="NeuroCare Location - Kottayam, Kerala"
+                ></iframe>
+              </div>
             </div>
-            <div className="w-full h-64 rounded-lg overflow-hidden shadow-md border border-gray-200">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125442.72455312653!2d76.44608!3d9.59411!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d514abec6bf%3A0xbd582caa5844192!2sKottayam%2C%20Kerala!5e0!3m2!1sen!2sin!4v1703123456789!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="NeuroCare Location - Kottayam, Kerala"
-              ></iframe>
-            </div>
-            <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
-              <p className="text-blue-900 font-semibold mb-1 text-sm neuro-font">
-                NeuroCare Medical Center
-              </p>
-              <p className="text-gray-700 text-xs mb-1 medical-font">
-                Kottayam, Kerala, India 686001
-              </p>
-              <p className="text-blue-600 text-xs neuro-font">
-                📞 +91 (481) 123-4567 | 📧 info@neurocare.in
-              </p>
+
+            {/* Location Details */}
+            <div className="flex flex-col justify-center">
+              <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
+                <h4 className="text-blue-900 font-semibold mb-3 text-center">
+                  NeuroCare Medical Center
+                </h4>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 text-sm">
+                    <FaMapMarkerAlt className="text-blue-600" />
+                    <span className="text-gray-700">Kottayam, Kerala, India 686001</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <FaPhone className="text-blue-600" />
+                    <span className="text-gray-700">+91 (481) 123-4567</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <FaEnvelope className="text-blue-600" />
+                    <span className="text-gray-700">info@neurocare.in</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <FaClock className="text-blue-600" />
+                    <span className="text-gray-700">Mon-Fri: 9AM-6PM IST</span>
+                  </div>
+                </div>
+
+                <div className="mt-4 pt-4 border-t border-blue-200">
+                  <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+                    <FaMapMarkerAlt className="text-xs" />
+                    Get Directions
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-} 
+}

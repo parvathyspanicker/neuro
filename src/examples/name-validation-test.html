@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Field Validation Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .test-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-group input.error {
+            border: 2px solid #dc3545 !important;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+        }
+        
+        .form-group input.valid {
+            border: 2px solid #28a745 !important;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        
+        .field-error {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .field-error::before {
+            content: "⚠️";
+            font-size: 0.75rem;
+        }
+        
+        .instructions {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions h3 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        
+        .instructions ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-form">
+        <h2>Name Field Validation Test</h2>
+        
+        <div class="instructions">
+            <h3>Test Instructions:</h3>
+            <ul>
+                <li>Type numbers in the name field - you should see an immediate error</li>
+                <li>Type special characters (@, #, $, etc.) - you should see an error</li>
+                <li>Type only letters and spaces - should be valid</li>
+                <li>Try multiple spaces - should show an error</li>
+                <li>Start or end with spaces - should show an error</li>
+            </ul>
+        </div>
+        
+        <form id="testForm">
+            <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Enhanced validation for name field
+        function validateFullName(name) {
+            const errors = [];
+            
+            if (!name || name.trim() === '') {
+                errors.push('Full name is required');
+            } else {
+                const trimmedName = name.trim();
+                
+                // Check for numbers immediately
+                if (/\d/.test(trimmedName)) {
+                    errors.push('Name cannot contain numbers');
+                }
+                
+                // Check for special characters (except spaces)
+                if (/[^a-zA-Z\s]/.test(trimmedName)) {
+                    errors.push('Name can only contain letters and spaces');
+                }
+                
+                if (trimmedName.length < 2) {
+                    errors.push('Name must be at least 2 characters long');
+                } else if (trimmedName.length > 50) {
+                    errors.push('Name must not exceed 50 characters');
+                }
+                
+                if (/\s{2,}/.test(trimmedName)) {
+                    errors.push('Name cannot contain multiple consecutive spaces');
+                }
+                
+                if (trimmedName.startsWith(' ') || trimmedName.endsWith(' ')) {
+                    errors.push('Name cannot start or end with spaces');
+                }
+            }
+            
+            return errors;
+        }
+
+        function updateFieldUI(input, errors) {
+            const errorContainer = document.getElementById(`${input.name}-error`);
+            
+            if (errors.length > 0) {
+                // Show error
+                input.classList.add('error');
+                input.classList.remove('valid');
+                
+                if (errorContainer) {
+                    errorContainer.textContent = errors[0];
+                    errorContainer.style.display = 'flex';
+                }
+            } else if (input.value.trim() !== '') {
+                // Show valid state
+                input.classList.remove('error');
+                input.classList.add('valid');
+                
+                if (errorContainer) {
+                    errorContainer.style.display = 'none';
+                }
+            } else {
+                // Clear all states
+                input.classList.remove('error', 'valid');
+                
+                if (errorContainer) {
+                    errorContainer.style.display = 'none';
+                }
+            }
+        }
+
+        function validateField(input) {
+            const fieldName = input.name;
+            const value = input.value;
+            
+            let errors = [];
+            if (fieldName === 'fullName') {
+                errors = validateFullName(value);
+            }
+            
+            updateFieldUI(input, errors);
+        }
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('testForm');
+            const nameInput = document.getElementById('fullName');
+            
+            // Add error container for name field
+            const errorContainer = document.createElement('div');
+            errorContainer.className = 'field-error';
+            errorContainer.id = 'fullName-error';
+            errorContainer.style.display = 'none';
+            nameInput.parentElement.appendChild(errorContainer);
+            
+            // Add event listeners
+            nameInput.addEventListener('input', () => validateField(nameInput));
+            nameInput.addEventListener('blur', () => validateField(nameInput));
+            
+            // Prevent form submission for demo
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Form validation test completed! Check the console for validation results.');
+                
+                const validation = validateFullName(nameInput.value);
+                console.log('Final validation result:', validation);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

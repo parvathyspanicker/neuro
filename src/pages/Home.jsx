@@ -1,12 +1,31 @@
 import "../style.css";
 import heroImg from '../assets/brain-ai.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Howitwork from '../components/Howitwork';
 import Features from '../components/Feature';
+import { useAuth } from '../contexts/AuthContext';
+import { useEffect } from 'react';
+import {
+  FaHome, FaUserMd, FaUsers, FaUpload, FaFileAlt, FaComments, FaCog,
+  FaBell, FaSearch, FaUser, FaSignOutAlt, FaChevronDown, FaCheck, FaTimes,
+  FaEye, FaFilter, FaChevronLeft, FaChevronRight, FaBrain, FaCalendarAlt,
+  FaCrown, FaExclamationTriangle, FaCheckCircle, FaTimesCircle, FaMoon, FaSun,
+  FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope, FaStar, FaGlobe
+} from 'react-icons/fa';
 
 export default function Home() {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+
+  // No automatic navigation needed - Google sign-in redirects directly to dashboard
+  useEffect(() => {
+    console.log('Home component - User state:', { user, loading });
+    // Google sign-in users are redirected directly to dashboard via redirectTo option
+    // Email/password login handles its own navigation in Login.jsx
+  }, [user, loading]);
+  
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-800 overflow-x-hidden flex flex-col">
+    <div className="min-h-screen bg-white text-gray-800 overflow-x-hidden flex flex-col">
       {/* Navbar - Same structure, professional styling */}
       <header className="flex justify-between items-center px-12 py-4 w-full bg-white shadow-sm">
         <div className="flex items-center gap-2">
@@ -14,54 +33,34 @@ export default function Home() {
           <span className="text-2xl font-extrabold text-blue-700 tracking-wider">NeuroCare</span>
         </div>
         <nav className="flex items-center space-x-8 text-md font-medium text-gray-700">
-          <Link to="/dashboard" className="hover:text-blue-600 transition flex items-center gap-2">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-            </svg>
-            Dashboard
-          </Link>
-          <a href="#" className="hover:text-blue-600 transition flex items-center gap-2">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-            </svg>
+          <a href="#" className="text-blue-600 flex items-center gap-2">
+            <FaHome className="text-lg" />
             <span>Home</span>
           </a>
           <Link to="/about" className="hover:text-blue-600 transition flex items-center gap-2">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
-            </svg>
+            <FaInfoCircle className="text-lg" />
             <span>About</span>
           </Link>
           <a href="#feature" className="hover:text-blue-600 transition flex items-center gap-2">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
+            <FaStar className="text-lg" />
             <span>Features</span>
           </a>
           <a href="#how" className="hover:text-blue-600 transition flex items-center gap-2">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
+            <FaGlobe className="text-lg" />
             <span>How it Works</span>
           </a>
           <a href="#contact" className="hover:text-blue-600 transition flex items-center gap-2">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-            </svg>
+            <FaEnvelope className="text-lg" />
             <span>Contact</span>
           </a>
         </nav>
         <div className="flex items-center gap-4">
-          <Link to="/login" className="text-blue-600 font-semibold hover:underline flex items-center gap-2">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5z"/>
-            </svg>
+          <Link to="/login" className="hover:text-blue-600 transition flex items-center gap-2">
+            <FaSignInAlt className="text-lg" />
             <span>Login</span>
           </Link>
-          <Link to="/register" className="bg-blue-600 text-white px-5 py-2 rounded-xl font-semibold shadow hover:bg-blue-700 transition flex items-center gap-2">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
+          <Link to="/register" className="hover:text-blue-600 transition flex items-center gap-2">
+            <FaUserPlus className="text-lg" />
             <span>Register</span>
           </Link>
         </div>
@@ -101,96 +100,139 @@ export default function Home() {
             <path d="M0,370 Q210,220 420,320 L420,420 L0,420 Z" fill="#e2e8f0" />
           </svg>
           
-          {/* Simple floating elements */}
+          {/* Brain-focused floating elements */}
           <div className="absolute z-20 w-full h-full pointer-events-none">
             <div className="bg-white rounded-lg shadow-md p-3 flex items-center justify-center absolute left-[-30px] top-20 border border-gray-200">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                <span className="text-xs font-medium text-gray-700">1,200+ Patients</span>
+                <span className="text-xs font-medium text-gray-700">10K+ Scans</span>
               </div>
             </div>
             
             <div className="bg-white rounded-lg shadow-md p-3 flex items-center justify-center absolute right-[-40px] top-32 border border-gray-200">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-green-600">4.9★</span>
-                <span className="text-xs text-gray-600">Rating</span>
+                <span className="text-xs font-bold text-green-600">99.2%</span>
+                <span className="text-xs text-gray-600">Accuracy</span>
               </div>
             </div>
             
             <div className="bg-white rounded-lg shadow-md p-3 absolute right-[-20px] bottom-20 border border-gray-200">
               <div className="text-center">
-                <div className="text-sm font-semibold text-blue-600">95%</div>
-                <div className="text-xs text-gray-500">Success Rate</div>
+                <div className="text-sm font-semibold text-purple-600">AI</div>
+                <div className="text-xs text-gray-500">Powered</div>
               </div>
             </div>
           </div>
           
-          {/* Professional Doctor Card */}
+          {/* AI Brain Analysis Card */}
           <div className="bg-white rounded-2xl shadow-lg p-6 w-80 relative z-10 border border-gray-200">
-            {/* Doctor Image */}
+            {/* Brain Image */}
             <div className="relative mx-auto mb-4 w-20 h-20">
-              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Doctor" className="w-20 h-20 rounded-full border-2 border-gray-200" />
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center overflow-hidden">
+                <img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/1/10/MRI_of_human_head_in_Coronal_section.jpg"
+                  srcSet="https://upload.wikimedia.org/wikipedia/commons/1/10/MRI_of_human_head_in_Coronal_section.jpg 1x, https://upload.wikimedia.org/wikipedia/commons/1/10/MRI_of_human_head_in_Coronal_section.jpg 2x"
+                  sizes="80px"
+                  alt="Brain MRI" 
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover rounded-full"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <svg width="40" height="40" fill="currentColor" viewBox="0 0 24 24" className="text-white absolute" style={{display: 'none'}}>
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24" className="text-white">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
             </div>
             
             <div className="text-center mb-4">
-              <div className="text-xs text-gray-500 mb-1">Board Certified Neurologist</div>
-              <div className="text-lg font-semibold text-gray-900 mb-1">Dr. Eapen Thomas</div>
-              <div className="text-sm text-gray-600">15 Years Experience</div>
+              <div className="text-xs text-gray-500 mb-1">AI-Powered Analysis</div>
+              <div className="text-lg font-semibold text-gray-900 mb-1">Brain MRI Scanner</div>
+              <div className="text-sm text-gray-600">Real-time Detection</div>
             </div>
             
-            {/* Simple stats */}
+            {/* Brain Analysis Stats */}
             <div className="flex justify-center gap-6 mb-4 text-center">
               <div>
-                <div className="text-sm font-semibold text-blue-600">1.2K+</div>
-                <div className="text-xs text-gray-500">Patients</div>
+                <div className="text-sm font-semibold text-blue-600">99.2%</div>
+                <div className="text-xs text-gray-500">Accuracy</div>
               </div>
               <div>
-                <div className="text-sm font-semibold text-green-600">4.9★</div>
-                <div className="text-xs text-gray-500">Rating</div>
+                <div className="text-sm font-semibold text-green-600">2.3s</div>
+                <div className="text-xs text-gray-500">Scan Time</div>
               </div>
               <div>
-                <div className="text-sm font-semibold text-gray-700">95%</div>
-                <div className="text-xs text-gray-500">Success</div>
+                <div className="text-sm font-semibold text-purple-600">AI</div>
+                <div className="text-xs text-gray-500">Powered</div>
               </div>
             </div>
             
-            {/* Professional action buttons */}
+            {/* Brain Analysis Features */}
             <div className="flex justify-center gap-3 mb-4">
-              <button className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors">
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-                  <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke="currentColor" strokeWidth="2"/>
+              <button className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors" title="Tumor Detection">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
               </button>
-              <button className="bg-green-600 text-white p-2 rounded-lg hover:bg-green-700 transition-colors">
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-                  <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" stroke="currentColor" strokeWidth="2"/>
+              <button className="bg-green-600 text-white p-2 rounded-lg hover:bg-green-700 transition-colors" title="Stroke Analysis">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
               </button>
-              <button className="bg-gray-600 text-white p-2 rounded-lg hover:bg-gray-700 transition-colors">
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-                  <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke="currentColor" strokeWidth="2"/>
+              <button className="bg-purple-600 text-white p-2 rounded-lg hover:bg-purple-700 transition-colors" title="Brain Mapping">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553-2.276A1 1 0 0021 16.382V5.618a1 1 0 00-1.447-.894L15 4m0 13V4m0 0L9 7"/>
                 </svg>
               </button>
             </div>
             
-            {/* Simple chart */}
-            <div className="bg-gray-50 rounded-lg p-3">
+            {/* Brain Activity Chart */}
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-3">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium text-gray-700">Patient Recovery</span>
-                <span className="text-xs text-green-600">+12%</span>
+                <span className="text-xs font-medium text-gray-700">Brain Activity</span>
+                <span className="text-xs text-green-600">Normal</span>
               </div>
               <svg width="100%" height="30" viewBox="0 0 240 30" fill="none">
-                <path d="M0 25L40 20L80 22L120 10L160 15L200 8L240 12" stroke="#3b82f6" strokeWidth="2" fill="none"/>
+                <path d="M0 15L20 8L40 12L60 5L80 10L100 15L120 8L140 12L160 5L180 10L200 15L220 8L240 12" stroke="#3b82f6" strokeWidth="2" fill="none"/>
+                <path d="M0 15L20 8L40 12L60 5L80 10L100 15L120 8L140 12L160 5L180 10L200 15L220 8L240 12" stroke="#8b5cf6" strokeWidth="1" fill="none" opacity="0.5"/>
                 <circle cx="240" cy="12" r="3" fill="#3b82f6"/>
               </svg>
             </div>
           </div>
           
-          {/* Simple patient avatar */}
+          {/* Brain scan result */}
           <div className="absolute right-[-50px] bottom-[-50px] z-20">
-            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Patient" className="w-16 h-16 rounded-full border-2 border-white shadow-md" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg border-2 border-white shadow-md overflow-hidden">
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/1/10/MRI_of_human_head_in_Coronal_section.jpg"
+                srcSet="https://upload.wikimedia.org/wikipedia/commons/1/10/MRI_of_human_head_in_Coronal_section.jpg 1x, https://upload.wikimedia.org/wikipedia/commons/1/10/MRI_of_human_head_in_Coronal_section.jpg 2x"
+                sizes="64px"
+                alt="Brain Scan" 
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'flex';
+                }}
+              />
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" className="text-white absolute inset-0 m-auto" style={{display: 'none'}}>
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+              <svg width="8" height="8" fill="currentColor" viewBox="0 0 24 24" className="text-white">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
           </div>
         </div>
       </section>
@@ -209,6 +251,8 @@ export default function Home() {
     </div>
   );
 } 
+
+
 
 
 

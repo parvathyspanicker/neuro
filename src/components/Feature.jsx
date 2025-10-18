@@ -1,5 +1,9 @@
 import "../style.css";
-import { FaBrain, FaHeartbeat, FaShieldAlt, FaChartLine, FaClock, FaUsers } from "react-icons/fa";
+import {
+  FaBrain, FaHeartbeat, FaShieldAlt, FaChartLine, FaClock, FaUsers,
+  FaCheckCircle, FaStar, FaAward, FaLock, FaRocket, FaEye, FaUserMd,
+  FaMicroscope, FaLaptopMedical, FaClipboardCheck, FaThumbsUp, FaGem
+} from "react-icons/fa";
 
 const features = [
   {
@@ -54,11 +58,14 @@ const features = [
 
 export default function Features() {
   return (
-    <section id="features" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
+    <section id="features" className="py-16 bg-white">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+        {/* Clean Section Header */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-xl mb-4">
+            <FaGem className="text-blue-600 text-lg" />
+          </div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Advanced Features
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -66,55 +73,146 @@ export default function Features() {
           </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Modern Features Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <div 
+            <div
               key={index}
-              className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="group bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
-              {/* Icon */}
-              <div className={`inline-flex items-center justify-center w-16 h-16 ${feature.bgColor} rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                <feature.icon className={`${feature.color} text-2xl`} />
+              {/* Icon Header */}
+              <div className="flex items-center justify-between mb-4">
+                <div className={`w-12 h-12 ${feature.bgColor} rounded-lg flex items-center justify-center`}>
+                  <feature.icon className={`${feature.color} text-lg`} />
+                </div>
+                <span className={`text-xs font-semibold px-3 py-1 rounded-full ${feature.bgColor} ${feature.color}`}>
+                  {feature.stats}
+                </span>
               </div>
 
               {/* Content */}
               <div className="mb-4">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xl font-bold text-indigo-800 group-hover:text-indigo-600 transition-colors">
-                    {feature.title}
-                  </h3>
-                  <span className={`text-xs font-semibold px-3 py-1 rounded-full ${feature.bgColor} ${feature.color}`}>
-                    {feature.stats}
-                  </span>
-                </div>
-                <p className="text-gray-600 leading-relaxed">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">
                   {feature.description}
                 </p>
               </div>
 
-              {/* Learn More Link */}
-              <div className="flex items-center text-indigo-600 font-semibold text-sm group-hover:text-indigo-500 transition-colors">
-                <span>Learn more</span>
-                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+              {/* Feature Benefits */}
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center text-sm text-gray-700">
+                  <FaCheckCircle className="text-green-600 text-xs mr-2" />
+                  <span>Clinically validated</span>
+                </div>
+                <div className="flex items-center text-sm text-gray-700">
+                  <FaAward className="text-blue-600 text-xs mr-2" />
+                  <span>FDA approved</span>
+                </div>
+                <div className="flex items-center text-sm text-gray-700">
+                  <FaLock className="text-purple-600 text-xs mr-2" />
+                  <span>Secure & private</span>
+                </div>
               </div>
+
+              {/* Action Button */}
+              <button className="w-full bg-gray-50 hover:bg-blue-50 text-blue-600 py-2 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                <FaEye className="text-xs" />
+                Learn More
+              </button>
             </div>
           ))}
         </div>
 
-        {/* Bottom CTA */}
+        {/* Technology Stack */}
+        <div className="mt-16 bg-gray-50 rounded-xl p-8">
+          <div className="text-center mb-8">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Powered by Advanced Technology</h3>
+            <p className="text-sm text-gray-600">Industry-leading tools and frameworks</p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+              <FaMicroscope className="text-blue-600 text-2xl mx-auto mb-3" />
+              <div className="text-sm font-semibold text-gray-900 mb-1">Deep Learning</div>
+              <div className="text-xs text-gray-600">Neural networks</div>
+            </div>
+            <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+              <FaLaptopMedical className="text-green-600 text-2xl mx-auto mb-3" />
+              <div className="text-sm font-semibold text-gray-900 mb-1">Cloud Computing</div>
+              <div className="text-xs text-gray-600">Scalable infrastructure</div>
+            </div>
+            <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+              <FaUserMd className="text-purple-600 text-2xl mx-auto mb-3" />
+              <div className="text-sm font-semibold text-gray-900 mb-1">Expert Network</div>
+              <div className="text-xs text-gray-600">Board-certified doctors</div>
+            </div>
+            <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+              <FaClipboardCheck className="text-orange-600 text-2xl mx-auto mb-3" />
+              <div className="text-sm font-semibold text-gray-900 mb-1">Quality Assurance</div>
+              <div className="text-xs text-gray-600">Rigorous testing</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Trust Indicators */}
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="text-center p-4 bg-white rounded-lg shadow-sm border border-gray-100">
+            <FaStar className="text-yellow-500 text-2xl mx-auto mb-3" />
+            <div className="text-lg font-bold text-gray-900 mb-1">4.9/5</div>
+            <div className="text-sm text-gray-600">Patient Rating</div>
+          </div>
+          <div className="text-center p-4 bg-white rounded-lg shadow-sm border border-gray-100">
+            <FaAward className="text-blue-600 text-2xl mx-auto mb-3" />
+            <div className="text-lg font-bold text-gray-900 mb-1">FDA</div>
+            <div className="text-sm text-gray-600">Approved</div>
+          </div>
+          <div className="text-center p-4 bg-white rounded-lg shadow-sm border border-gray-100">
+            <FaThumbsUp className="text-green-600 text-2xl mx-auto mb-3" />
+            <div className="text-lg font-bold text-gray-900 mb-1">99.2%</div>
+            <div className="text-sm text-gray-600">Accuracy</div>
+          </div>
+          <div className="text-center p-4 bg-white rounded-lg shadow-sm border border-gray-100">
+            <FaRocket className="text-purple-600 text-2xl mx-auto mb-3" />
+            <div className="text-lg font-bold text-gray-900 mb-1">2.3s</div>
+            <div className="text-sm text-gray-600">Analysis Time</div>
+          </div>
+        </div>
+
+        {/* Clean White CTA */}
         <div className="text-center mt-16">
-          <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-lg">
-            <h3 className="text-2xl font-bold mb-4 text-blue-900">Ready to Experience the Future of Neurological Care?</h3>
+          <div className="bg-white rounded-xl p-8 border border-gray-200 shadow-lg">
+            <h3 className="text-2xl font-bold mb-4 text-gray-900">Ready to Transform Your Neurological Care?</h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Join thousands of patients and doctors who trust NeuroCare for accurate, fast, and secure neurological health management.
+              Join thousands of patients and doctors who trust NeuroCare for accurate, fast, and secure health management.
             </p>
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-lg">
-              Get Started Today
-            </button>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-lg">
+                <FaRocket className="text-sm" />
+                Get Started Today
+              </button>
+              <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors border-2 border-blue-600 flex items-center justify-center gap-2">
+                <FaEye className="text-sm" />
+                View Demo
+              </button>
+            </div>
+
+            <div className="mt-6 flex items-center justify-center gap-6 text-sm text-gray-500">
+              <div className="flex items-center gap-2">
+                <FaCheckCircle className="text-green-600" />
+                <span>Free Trial</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FaLock className="text-blue-600" />
+                <span>Secure</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FaAward className="text-purple-600" />
+                <span>Certified</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

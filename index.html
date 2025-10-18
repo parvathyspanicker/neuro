@@ -4,10 +4,37 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Neurocare ai</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div style="padding:16px;font-family:system-ui,Segoe UI,Arial,sans-serif;color:#111;">
+        Loading Neurocare… If this text stays, the app didn't mount.
+      </div>
+    </div>
+    <script>
+      // Surface any early runtime errors on the page
+      (function(){
+        function show(msg){
+          var el = document.createElement('pre');
+          el.style.whiteSpace = 'pre-wrap';
+          el.style.background = '#fee2e2';
+          el.style.color = '#991b1b';
+          el.style.padding = '12px';
+          el.style.border = '1px solid #fecaca';
+          el.style.borderRadius = '8px';
+          el.style.margin = '12px';
+          el.textContent = '[Runtime error] ' + msg;
+          document.body.prepend(el);
+        }
+        window.addEventListener('error', function(e){
+          show((e.error && e.error.stack) || e.message || String(e));
+        });
+        window.addEventListener('unhandledrejection', function(e){
+          show((e.reason && (e.reason.stack || e.reason.message)) || String(e.reason));
+        });
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

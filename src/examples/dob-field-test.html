@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date of Birth Field Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .test-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-group input.error {
+            border: 2px solid #dc3545 !important;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+        }
+        
+        .form-group input.valid {
+            border: 2px solid #28a745 !important;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        
+        .field-error {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .field-error::before {
+            content: "⚠️";
+            font-size: 0.75rem;
+        }
+        
+        .instructions {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions h3 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        
+        .instructions ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+        }
+        
+        .examples {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .examples h4 {
+            margin-top: 0;
+            color: #495057;
+        }
+        
+        .example-item {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+            border-left: 3px solid #28a745;
+        }
+        
+        .example-item.invalid {
+            border-left-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-form">
+        <h2>Date of Birth Field Test</h2>
+        
+        <div class="instructions">
+            <h3>Test Instructions:</h3>
+            <ul>
+                <li>Type numbers in the DOB field - it will auto-format as dd-mm-yyyy</li>
+                <li>Try typing: 15031990 → will become 15-03-1990</li>
+                <li>Invalid dates will show errors immediately</li>
+                <li>Must be 18+ years old to register</li>
+                <li>Cannot be a future date</li>
+            </ul>
+        </div>
+        
+        <form id="testForm">
+            <div class="form-group">
+                <label for="dob">Date of Birth *</label>
+                <input type="text" id="dob" name="dob" placeholder="dd-mm-yyyy" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name">
+            </div>
+        </form>
+        
+        <div class="examples">
+            <h4>Valid Date Examples:</h4>
+            <div class="example-item">15-03-1990 (Valid, 18+ years old)</div>
+            <div class="example-item">01-01-1985 (Valid, 18+ years old)</div>
+            <div class="example-item">31-12-2000 (Valid, 18+ years old)</div>
+            
+            <h4>Invalid Date Examples:</h4>
+            <div class="example-item invalid">32-13-2024 (Invalid day/month)</div>
+            <div class="example-item invalid">01-01-2030 (Future date)</div>
+            <div class="example-item invalid">01-01-2010 (Under 18 years old)</div>
+            <div class="example-item invalid">15/03/1990 (Wrong format)</div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced DOB validation
+        function validateDateOfBirth(dob) {
+            const errors = [];
+            
+            if (!dob || dob.trim() === '') {
+                errors.push('Date of birth is required');
+            } else {
+                // Check format dd-mm-yyyy
+                const dateRegex = /^(\d{2})-(\d{2})-(\d{4})$/;
+                const match = dob.trim().match(dateRegex);
+                
+                if (!match) {
+                    errors.push('Date must be in dd-mm-yyyy format');
+                    return errors;
+                }
+                
+                const day = parseInt(match[1], 10);
+                const month = parseInt(match[2], 10);
+                const year = parseInt(match[3], 10);
+                
+                // Validate day
+                if (day < 1 || day > 31) {
+                    errors.push('Day must be between 01 and 31');
+                }
+                
+                // Validate month
+                if (month < 1 || month > 12) {
+                    errors.push('Month must be between 01 and 12');
+                }
+                
+                // Validate year
+                const currentYear = new Date().getFullYear();
+                if (year < 1900 || year > currentYear) {
+                    errors.push(`Year must be between 1900 and ${currentYear}`);
+                }
+                
+                // Check if date is valid
+                const date = new Date(year, month - 1, day);
+                if (date.getDate() !== day || date.getMonth() !== month - 1 || date.getFullYear() !== year) {
+                    errors.push('Please enter a valid date');
+                }
+                
+                // Check if date is not in the future
+                const today = new Date();
+                if (date > today) {
+                    errors.push('Date of birth cannot be in the future');
+                }
+                
+                // Check if user is at least 18 years old
+                const age = today.getFullYear() - year;
+                const monthDiff = today.getMonth() - (month - 1);
+                const dayDiff = today.getDate() - day;
+                
+                let actualAge = age;
+                if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+                    actualAge = age - 1;
+                }
+                
+                if (actualAge < 18) {
+                    errors.push('You must be at least 18 years old to register');
+                }
+                
+                // Check if user is too old (reasonable limit)
+                if (actualAge > 120) {
+                    errors.push('Please enter a valid date of birth');
+                }
+            }
+            
+            return errors;
+        }
+
+        function formatDOBInput(value) {
+            // Remove all non-digit characters
+            const digitsOnly = value.replace(/\D/g, '');
+            
+            // Format as dd-mm-yyyy
+            if (digitsOnly.length <= 2) {
+                return digitsOnly;
+            } else if (digitsOnly.length <= 4) {
+                return `${digitsOnly.slice(0, 2)}-${digitsOnly.slice(2)}`;
+            } else {
+                return `${digitsOnly.slice(0, 2)}-${digitsOnly.slice(2, 4)}-${digitsOnly.slice(4, 8)}`;
+            }
+        }
+
+        function updateFieldUI(input, errors) {
+            const errorContainer = document.getElementById(`${input.name}-error`);
+            
+            if (errors.length > 0) {
+                // Show error
+                input.classList.add('error');
+                input.classList.remove('valid');
+                
+                if (errorContainer) {
+                    errorContainer.textContent = errors[0];
+                    errorContainer.style.display = 'flex';
+                }
+            } else if (input.value.trim() !== '') {
+                // Show valid state
+                input.classList.remove('error');
+                input.classList.add('valid');
+                
+                if (errorContainer) {
+                    errorContainer.style.display = 'none';
+                }
+            } else {
+                // Clear all states
+                input.classList.remove('error', 'valid');
+                
+                if (errorContainer) {
+                    errorContainer.style.display = 'none';
+                }
+            }
+        }
+
+        function validateField(input) {
+            const fieldName = input.name;
+            const value = input.value;
+            
+            let errors = [];
+            if (fieldName === 'dob') {
+                errors = validateDateOfBirth(value);
+            }
+            
+            updateFieldUI(input, errors);
+        }
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('testForm');
+            const dobInput = document.getElementById('dob');
+            
+            // Add error container for DOB field
+            const errorContainer = document.createElement('div');
+            errorContainer.className = 'field-error';
+            errorContainer.id = 'dob-error';
+            errorContainer.style.display = 'none';
+            dobInput.parentElement.appendChild(errorContainer);
+            
+            // Add event listeners
+            dobInput.addEventListener('input', function(e) {
+                // Format the input as user types
+                const formattedValue = formatDOBInput(e.target.value);
+                e.target.value = formattedValue;
+                
+                // Validate the formatted value
+                validateField(e.target);
+            });
+            
+            dobInput.addEventListener('blur', () => validateField(dobInput));
+            
+            // Prevent form submission for demo
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('DOB validation test completed! Check the console for validation results.');
+                
+                const validation = validateDateOfBirth(dobInput.value);
+                console.log('Final DOB validation result:', validation);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

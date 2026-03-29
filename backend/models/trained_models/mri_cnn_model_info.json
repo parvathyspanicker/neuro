@@ -1,0 +1,15 @@
+{
+  "class_names": [
+    "Normal",
+    "Mild Cognitive Impairment",
+    "Alzheimer's Disease",
+    "Brain Tumor",
+    "Stroke"
+  ],
+  "num_classes": 5,
+  "input_shape": [
+    224,
+    224,
+    1
+  ]
+}

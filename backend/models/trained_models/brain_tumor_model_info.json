@@ -1,0 +1,40 @@
+{
+  "class_names": [
+    "glioma",
+    "meningioma",
+    "notumor",
+    "pituitary"
+  ],
+  "num_classes": 4,
+  "input_shape": [
+    224,
+    224,
+    3
+  ],
+  "model_type": "MobileNetV2_transfer_learning",
+  "test_accuracy": 0.90125,
+  "per_class_metrics": {
+    "glioma": {
+      "precision": 0.9544072948328267,
+      "recall": 0.785,
+      "f1_score": 0.8614540466392319
+    },
+    "meningioma": {
+      "precision": 0.8701298701298701,
+      "recall": 0.8375,
+      "f1_score": 0.8535031847133758
+    },
+    "notumor": {
+      "precision": 0.943127962085308,
+      "recall": 0.995,
+      "f1_score": 0.9683698296836983
+    },
+    "pituitary": {
+      "precision": 0.8512931034482759,
+      "recall": 0.9875,
+      "f1_score": 0.9143518518518519
+    }
+  },
+  "trained_on": "brain-tumor-mri-dataset (Kaggle)",
+  "trained_at": "2026-03-17T11:35:06.098738"
+}

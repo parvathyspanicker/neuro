@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neurocare ai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Poppins:wght@400;600;800&family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root">
+      <div style="padding:16px;font-family:'Inter',system-ui,Segoe UI,Arial,sans-serif;color:#111;">
+        Loading Neurocare… If this text stays, the app didn't mount.
+      </div>
+    </div>
+    <script>
+      // Surface any early runtime errors on the page
+      (function(){
+        function show(msg){
+          var el = document.createElement('pre');
+          el.style.whiteSpace = 'pre-wrap';
+          el.style.background = '#fee2e2';
+          el.style.color = '#991b1b';
+          el.style.padding = '12px';
+          el.style.border = '1px solid #fecaca';
+          el.style.borderRadius = '8px';
+          el.style.margin = '12px';
+          el.textContent = '[Runtime error] ' + msg;
+          document.body.prepend(el);
+        }
+        window.addEventListener('error', function(e){
+          show((e.error && e.error.stack) || e.message || String(e));
+        });
+        window.addEventListener('unhandledrejection', function(e){
+          show((e.reason && (e.reason.stack || e.reason.message)) || String(e.reason));
+        });
+      })();
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

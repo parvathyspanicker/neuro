@@ -1,0 +1,13 @@
+{
+  "class_names": [
+    "meningioma",
+    "pituitary",
+    "glioma"
+  ],
+  "num_classes": 3,
+  "input_shape": [
+    224,
+    224,
+    1
+  ]
+}

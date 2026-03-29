@@ -1,0 +1,20 @@
+# Core dependencies - install these first
+tensorflow
+numpy
+opencv-python
+Pillow
+scikit-learn
+matplotlib
+
+# Medical Image Processing
+pydicom
+nibabel
+
+# Data Processing
+pandas
+scipy
+
+# Utilities
+tqdm
+fpdf2
+requests
